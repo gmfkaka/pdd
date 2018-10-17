@@ -1,16 +1,15 @@
 <template>
-    <div id="app">
-       <router-view></router-view>
+    <div>
+        个人中心
     </div>
 </template>
 
 <script>
     export default {
-        name: "App"
-    }
+        name:"Me"
+    };
 </script>
 
 <style scoped lang="stylus" ref="stylesheet/stylus">
-    .main
-        background: green
+
 </style>

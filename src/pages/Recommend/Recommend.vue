@@ -1,16 +1,15 @@
 <template>
-    <div id="app">
-       <router-view></router-view>
+    <div>
+        推荐
     </div>
 </template>
 
 <script>
     export default {
-        name: "App"
-    }
+        name:"Recommend"
+    };
 </script>
 
 <style scoped lang="stylus" ref="stylesheet/stylus">
-    .main
-        background: green
+
 </style>
