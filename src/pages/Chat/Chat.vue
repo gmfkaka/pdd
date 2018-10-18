@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="chat">
         聊天
     </div>
 </template>
@@ -11,5 +11,8 @@
 </script>
 
 <style scoped lang="stylus" ref="stylesheet/stylus">
-
+ .chat
+    background  skyblue
+    width 100%
+    height 100%
 </style>

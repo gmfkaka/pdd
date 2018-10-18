@@ -10,7 +10,7 @@ import Chat from './../pages/Chat/Chat'
 import Me from './../pages/Me/Me'
 
 // 2.声明使用
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 // 3.输出路由对象
 export default new VueRouter({
@@ -18,7 +18,7 @@ export default new VueRouter({
     routes: [
         {
             path: '/home',
-            components: Home
+            component: Home
         },
         {
             path: '/recommend',
