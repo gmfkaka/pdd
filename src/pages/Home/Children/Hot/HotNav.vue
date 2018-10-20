@@ -156,7 +156,6 @@ export default {
     },
     // 结束触摸
     handleTouchEnd() {
-      console.log("结束触摸");
       this.endFlag = this.barMoveWidth;
     }
   }
