@@ -1,8 +1,13 @@
 <template>
     <div class="home">
-        <ly-tab v-model="selectedId" :items="items" :options="options">
-
-        </ly-tab>
+        <ly-tab 
+          v-model="selectedId" 
+          :items="items" 
+          :options="options"  
+          @change="handleChange" 
+          class="fix"  
+        />
+        <router-view></router-view>
     </div>
 </template>
 
@@ -25,16 +30,37 @@ export default {
       ],
       options:{
           activeColor:'#e9232c' // 设置选中的颜色
-      }
+      },
+      // 二级路由配置
+      subRouterUrl:[
+        '/home/hot',
+        '/home/dress',
+        '/home/box',
+        '/home/mbaby',
+        '/home/general',
+        '/home/food',
+        '/home/shirt',
+        '/home/man',
+        '/home/ele',
+      ]
     };
+  },
+  methods:{
+    handleChange(item,index){
+      this.$router.replace(this.subRouterUrl[index]);
+    }
   }
 };
 </script>
 
 <style scoped lang="stylus" ref="stylesheet/stylus">
-.home {
+.home 
     background: #f5f5f5;
     width: 100%;
     height: 100%;
-}
+    .fix
+      position fixed
+      left 0
+      top 0
+      z-index 998
 </style>
