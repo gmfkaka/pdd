@@ -15,7 +15,7 @@ export default {
     [HOME_SHOP_LIST](state, { homeshoplist }) {
         state.homeshoplist = homeshoplist;
     },
-    [RECOMMEND_SHOP_LIST](state,{recommendlist}){
-        state.recommendlist = recommendlist;
+    [RECOMMEND_SHOP_LIST](state,{recommendshoplist}){
+        state.recommendshoplist = recommendshoplist;
     }
 }
