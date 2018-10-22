@@ -23,7 +23,7 @@
 
 <script>
 import Swiper from "swiper";
-import "swiper/dist/css/swiper.min.css";
+import "Swiper/dist/css/swiper.min.css";
 
 import HotNav from "./HotNav";
 import HotShopList from "./HotShopList";

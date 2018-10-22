@@ -1,11 +1,12 @@
 import {
     HOME_CASUAL,
-    HOME_NAV
-    ,HOME_SHOP_LIST
+    HOME_NAV, 
+    HOME_SHOP_LIST,
+    RECOMMEND_SHOP_LIST
 } from './mutations-types'
 
 export default {
-    [HOME_CASUAL](state,{homecasual}){
+    [HOME_CASUAL](state, { homecasual }) {
         state.homecasual = homecasual;
     },
     [HOME_NAV](state, { homenav }) {
@@ -13,5 +14,8 @@ export default {
     },
     [HOME_SHOP_LIST](state, { homeshoplist }) {
         state.homeshoplist = homeshoplist;
+    },
+    [RECOMMEND_SHOP_LIST](state,{recommendlist}){
+        state.recommendlist = recommendlist;
     }
 }
