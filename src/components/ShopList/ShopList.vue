@@ -11,12 +11,12 @@
 </template>
 
 <script>
-export default {
-    name:"ShopList",
-    props:{
-        item:Object
+    export default {
+        name:"ShopList",
+        props:{
+            item:Object
+        }
     }
-}
 </script>
 
 <style scoped lang="stylus" ref="stylesheet/stylus">
