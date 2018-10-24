@@ -14,7 +14,7 @@
             </div>
             <!-- 右边 -->
             <div class="shop-wrapper">
-                <ul>
+                <ul ref="shopsParent">
                     <li class="shops-li" v-for="(goods,index1) in searchgoods" :key="index1">
                         <div class="shops-title">
                             <h4>{{goods.name}}</h4>
@@ -45,10 +45,14 @@
     
     export default {
         name:"Search",
+        data(){
+            return {
+                scrollY: 0, // 右侧列表滑动的Y轴坐标(实时更新)
+                rightLiTops: [], // 所有分类的头部位置
+            }
+        },
         mounted(){
-            this.$store.dispatch('reqSearchGoods',()=>{
-                this._initEScroll();
-            })
+            this.$store.dispatch('reqSearchGoods')
         },
         computed:{
             ...mapState(['searchgoods'])
@@ -59,16 +63,44 @@
         watch:{
             searchgoods(){
                 this.$nextTick(()=>{
+                    // 1.1 初始化
                     this._initEScroll();
+                    // 1.2求出右边所有版块的头部位置
+                    this._initRightTops();
                 })
             }
         },
         methods:{
+            // 1.1初始化
             _initEScroll(){
                 // 1.1左边
-                let leftScroll = new BScroll('.menu-wrapper',{})
+                this.leftScroll = new BScroll('.menu-wrapper',{});
                 // 1.2右边
-                let rightScroll = new BScroll('.shop-wrapper',{})
+                this.rightScroll = new BScroll('.shop-wrapper',{
+                    probeType:2
+                });
+                // 1.3监听右侧滑动事件
+                this.rightScroll.on('scroll',(pos)=>{
+                    this.scrollY = Math.abs(pos.y);
+                    console.log(this.scrollY);
+                })
+            },
+            // 1.2求出右边所有版块的头部位置
+            _initRightTops(){
+                // 1.2.1 临时数组
+                const tempArr = [];
+                // 1.2.2 定义变量记录高度
+                let top = 0;
+                tempArr.push(top);
+                // 1.2.3 遍历li标签，取出高度
+                let allLis = this.$refs.shopsParent.getElementsByClassName("shops-li");
+                Array.prototype.slice.call(allLis).forEach(li=>{
+                    top += li.clientHeight;
+                    tempArr.push(top);
+                })
+                // 1.2.4 更新数据
+                this.rightLiTops = tempArr;
+                console.log(tempArr);
             }
         }
     };
