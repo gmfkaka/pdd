@@ -2,12 +2,18 @@
     <div class="search">
         <!-- 搜索导航 -->
         <search-nav />
-
+        <!-- 联动列表 -->
         <div class="shop">
             <!-- 左边 -->
             <div class="menu-wrapper">
                 <ul>
-                    <li class="menu-item" v-for="(goods,index) in searchgoods" :key="index">
+                    <li class="menu-item" 
+                        v-for="(goods,index) in searchgoods" 
+                        :key="index"
+                        :class="{current:index === currentIndex}"
+                        @click="clickLeftItem(index)"
+                        ref="menulist"
+                    >
                         <span>{{goods.name}}</span>
                     </li>
                 </ul>
@@ -35,11 +41,14 @@
                 </ul>
             </div>
         </div>
+        <!-- 搜索面板 -->
+        <search-panel></search-panel>
     </div>
 </template>
 
 <script>
     import SearchNav from './children/SearchNav'
+    import SearchPanel from './children/SearchPanel'
     import {mapState} from 'vuex'
     import BScroll from 'better-scroll'
     
@@ -55,10 +64,21 @@
             this.$store.dispatch('reqSearchGoods')
         },
         computed:{
-            ...mapState(['searchgoods'])
+            ...mapState(['searchgoods']),
+            currentIndex(){
+                // 动态决定左侧哪一个被选中
+                // 1.1 获取数据
+                const {scrollY,rightLiTops} = this;
+                // 1.2 取出索引
+                return rightLiTops.findIndex((liTop,index)=>{
+                    this._leftScroll(index);
+                    return scrollY >= liTop && scrollY < rightLiTops[index+1]
+                })
+            }
         },
         components:{
-            SearchNav
+            SearchNav,
+            SearchPanel
         },
         watch:{
             searchgoods(){
@@ -77,12 +97,12 @@
                 this.leftScroll = new BScroll('.menu-wrapper',{});
                 // 1.2右边
                 this.rightScroll = new BScroll('.shop-wrapper',{
-                    probeType:2
+                    probeType:3
                 });
                 // 1.3监听右侧滑动事件
                 this.rightScroll.on('scroll',(pos)=>{
                     this.scrollY = Math.abs(pos.y);
-                    console.log(this.scrollY);
+                    //console.log(this.scrollY);
                 })
             },
             // 1.2求出右边所有版块的头部位置
@@ -100,7 +120,18 @@
                 })
                 // 1.2.4 更新数据
                 this.rightLiTops = tempArr;
-                console.log(tempArr);
+            },
+            // 1.3点击切换
+            clickLeftItem(index){
+                this.scrollY = this.rightLiTops[index];
+                this.rightScroll.scrollTo(0,-this.scrollY,300);
+            },
+            // 1.4左侧联动
+            _leftScroll(index){
+                let menulists = this.$refs.menulist;
+                let el = menulists[index];
+                // console.log(el)
+                this.leftScroll.scrollToElement(el,300,0,-100)
             }
         }
     };
