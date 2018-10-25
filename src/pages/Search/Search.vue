@@ -1,7 +1,7 @@
 <template>
     <div class="search">
         <!-- 搜索导航 -->
-        <search-nav />
+        <search-nav :isShowSearchPanel="isShowSearchPanel"/>
         <!-- 联动列表 -->
         <div class="shop">
             <!-- 左边 -->
@@ -42,7 +42,7 @@
             </div>
         </div>
         <!-- 搜索面板 -->
-        <search-panel></search-panel>
+        <search-panel v-if="isShow" :isShowSearchPanel="isShowSearchPanel"/>
     </div>
 </template>
 
@@ -58,6 +58,7 @@
             return {
                 scrollY: 0, // 右侧列表滑动的Y轴坐标(实时更新)
                 rightLiTops: [], // 所有分类的头部位置
+                isShow:false // 设置搜索面板的显示
             }
         },
         mounted(){
@@ -132,6 +133,10 @@
                 let el = menulists[index];
                 // console.log(el)
                 this.leftScroll.scrollToElement(el,300,0,-100)
+            },
+            // 1.5设置搜素面板显示
+            isShowSearchPanel(flag){
+                this.isShow = flag
             }
         }
     };
