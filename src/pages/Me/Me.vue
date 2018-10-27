@@ -1,18 +1,22 @@
 <template>
     <div class="me">
-        个人中心
+        <select-login></select-login>
     </div>
 </template>
 
 <script>
+    import SelectLogin from "./../Login/SelectLogin"
     export default {
-        name:"Me"
+        name:"Me",
+        components:{
+            SelectLogin
+        }
     };
 </script>
 
 <style scoped lang="stylus" ref="stylesheet/stylus">
   .me   
-    background  purple 
+    background  #F5F5F5
     width 100%
     height 100%
 </style>

@@ -8,6 +8,7 @@ import Recommend from './../pages/Recommend/Recommend'
 import Search from './../pages/Search/Search'
 import Chat from './../pages/Chat/Chat'
 import Me from './../pages/Me/Me'
+import Login from './../pages/Login/Login'
 
 import Hot from '../pages/Home/Children/Hot/Hot'
 import Box from './../pages/Home/Children/Box'
@@ -31,7 +32,7 @@ export default new VueRouter({
             component: Home,
             children: [
                 // 热门板块
-                { path: 'hot', component: Hot },
+                { path: 'hot', component: Hot ,meta:{showBottomTabBar:true}},
                 // 服饰板块
                 { path: 'dress', component: Dress },
                 // 鞋包版块
@@ -54,19 +55,27 @@ export default new VueRouter({
         },
         {
             path: '/recommend',
-            component: Recommend
+            component: Recommend,
+            meta:{showBottomTabBar:true}
         },
         {
             path: '/search',
-            component: Search
+            component: Search,
+            meta:{showBottomTabBar:true}
         },
         {
             path: '/chat',
-            component: Chat
+            component: Chat,
+            meta:{showBottomTabBar:true}
         },
         {
             path: '/me',
-            component: Me
+            component: Me,
+            meta:{showBottomTabBar:true}
+        },
+        {
+            path: '/login',
+            component: Login
         },
         {
             path: '/',
