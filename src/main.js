@@ -5,6 +5,9 @@ import store from './store'
 //引入路由器
 import router from './router/index'
 import LyTab from 'ly-tab'
+import MintUI from 'mint-ui'
+import 'mint-ui/lib/style.css'
+Vue.use(MintUI)
 
 Vue.use(LyTab);
 

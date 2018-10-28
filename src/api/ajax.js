@@ -18,9 +18,9 @@ export default function ajax(url = '', params = {}, type = 'GET') {
             //2.3完整路径
             url += '?' + parmaStr;
             //2.4发送GET请求
-            promise = axios.get(url);
+            promise = axios.get(url, { credentials: true });
         } else if ('POST' === type) {
-            promise = axios.post(url, params);
+            promise = axios.post(url, params, { credentials: true});
         }
         //3返回请求结果
         promise.then((response) => {
