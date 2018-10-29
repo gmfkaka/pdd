@@ -15,6 +15,7 @@
       <me-common-cell left-icon="itlike-1" left-title="免密支付设置"/>
     </div>
 
+
     <div class="logout" @click="dealLogout">退出登录</div>
   </div>
 </template>
