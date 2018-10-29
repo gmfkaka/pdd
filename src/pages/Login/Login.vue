@@ -64,7 +64,7 @@
                 <img
                   ref="captcha"
                   class="get-verification"
-                  src="http://localhost:3000/api/captcha"
+                  src="http://127.0.0.1:3000/api/captcha"
                   alt="captcha"
                   @click.prevent="getCaptcha()"
                 >
@@ -151,7 +151,7 @@
       },
       // 4. 获取图形验证码
       getCaptcha() {
-        this.$refs.captcha.src = 'http://localhost:3000/api/captcha?time=' + new Date();
+        this.$refs.captcha.src = 'http://127.0.0.1:3000/api/captcha?time=' + new Date();
       },
       // 5. 登录
       async login() {
@@ -199,7 +199,7 @@
           const result = await pwdLogin(this.user_name, this.pwd, this.captcha);
           console.log(result);
           if (result.success_code === 200) {
-            this.userInfo = result.message;
+            this.userInfo = {message:result.message};
           } else {
             this.userInfo = {
               message: '登录失败, 手机号或验证码不正确!'
@@ -214,6 +214,7 @@
           Toast(this.userInfo.message);
         } else { // 成功
           // 6.1 同步用户数据
+          console.log(this.userInfo);
           this.syncUserInfo(this.userInfo);
           // 6.2 回到主界面
           this.$router.back();
@@ -237,7 +238,7 @@
         .login-logo
           font-size 40px
           font-weight bold
-          color mediumpurple
+          color #de3025
           text-align center
         .login-header-title
           padding-top 40px
@@ -250,9 +251,9 @@
             &:first-child
               margin-right 40px
             &.current
-              color mediumpurple
+              color #de3025
               font-weight 700
-              border-bottom 2px solid mediumpurple
+              border-bottom 2px solid #de3025
       .login-content
         > form
           > div
@@ -269,7 +270,7 @@
               outline 0
               font 400 14px Arial
               &:focus
-                border 1px solid mediumpurple
+                border 1px solid #de3025
             .login-message
               position relative
               margin-top 16px
@@ -307,14 +308,14 @@
               font-size 12px
               line-height 20px
               > a
-                color mediumpurple
+                color #de3025
           .login-submit
             display block
             width 100%
             height 42px
             margin-top 30px
             border-radius 4px
-            background mediumpurple
+            background #de3025
             color #fff
             text-align center
             font-size 16px
@@ -327,8 +328,8 @@
           margin-top 15px
           border-radius 4px
           background transparent
-          border: 1px solid mediumpurple
-          color mediumpurple
+          border: 1px solid #de3025
+          color #de3025
           text-align center
           font-size 16px
           line-height 42px

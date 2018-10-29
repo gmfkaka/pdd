@@ -3,7 +3,9 @@ import {
     getHomeNav,
     getHomeShopList,
     getRecommendShopList,
-    getSearchGoods
+    getSearchGoods,
+    getUserInfo,
+    getLogOut
 } from '../api'
 
 import {
@@ -12,7 +14,8 @@ import {
     HOME_SHOP_LIST,
     RECOMMEND_SHOP_LIST,
     SEARCH_GOODS,
-    USER_INFO
+    USER_INFO,
+    RESET_USER_INFO
 } from './mutations-types'
 
 export default {
@@ -47,4 +50,23 @@ export default {
     syncUserInfo({ commit }, userInfo) {
         commit(USER_INFO, { userInfo });
     },
+    
+    // 7. 异步获取用户信息
+    async getUserInfo({commit}){
+        const result = await getUserInfo();
+        console.log(result);
+        if(result.success_code === 200){
+            commit(USER_INFO, {userInfo: result.message});
+        }
+    },
+    // 8. 退出登录
+    async logout({commit}) {
+        console.log(111);
+        const result = await getLogOut();
+        console.log(result);
+        if (result.success_code === 200) {
+            commit(RESET_USER_INFO);
+        }
+    }
+    
 }

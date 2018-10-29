@@ -20,6 +20,8 @@ import Man from './../pages/Home/Children/Man'
 import Mbaby from './../pages/Home/Children/Mbaby'
 import Shirt from './../pages/Home/Children/Shirt'
 
+import Mesetting from './../pages/Me/MeSetting'
+
 // 2.声明使用
 Vue.use(VueRouter)
 
@@ -76,6 +78,10 @@ export default new VueRouter({
         {
             path: '/login',
             component: Login
+        },
+        {
+            path: '/setting',
+            component: Mesetting,
         },
         {
             path: '/',

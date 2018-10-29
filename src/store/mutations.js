@@ -4,7 +4,8 @@ import {
     HOME_SHOP_LIST,
     RECOMMEND_SHOP_LIST,
     SEARCH_GOODS,
-    USER_INFO
+    USER_INFO,
+    RESET_USER_INFO
 } from './mutations-types'
 
 export default {
@@ -25,5 +26,8 @@ export default {
     },
     [USER_INFO](state, { userInfo }) {
         state.userInfo = userInfo;
+    },
+    [RESET_USER_INFO](state) {
+        state.userInfo = {};
     },
 }
