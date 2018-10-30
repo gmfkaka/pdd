@@ -48,13 +48,13 @@ export default {
 
     // 6. 同步用户的信息
     syncUserInfo({ commit }, userInfo) {
+        console.log("同步用户消息")
         commit(USER_INFO, { userInfo });
     },
     
     // 7. 异步获取用户信息
     async getUserInfo({commit}){
         const result = await getUserInfo();
-        console.log(result);
         if(result.success_code === 200){
             commit(USER_INFO, {userInfo: result.message});
         }

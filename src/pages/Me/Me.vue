@@ -1,10 +1,10 @@
 <template>
-    <div class="me">
-        <select-login v-if="!userInfo.id"/>
-        <div v-else>
-            <me-top />
-        </div>
+  <div class="me">
+    <div v-if="userInfo.id">
+       <me-top />
     </div>
+    <select-login v-else/>
+  </div>
 </template>
 
 <script>

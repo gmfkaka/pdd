@@ -5,7 +5,7 @@
       <!--面板头部-->
       <div class="login-header">
         <div class="login-logo">
-          <img src="./images/lk_logo_sm.png" alt="" width="250">
+          <img src="./images/logo_sm.png" alt="" width="250">
         </div>
         <!--面板标题-->
         <div class="login-header-title">
@@ -39,7 +39,7 @@
               <input type="tel" maxlength="8" placeholder="验证码" v-model="code">
             </section>
             <section class="login-hint">
-              温馨提示：未注册撩课帐号的手机号，登录时将自动注册，且代表已同意
+              温馨提示：未注册帐号的手机号，登录时将自动注册，且代表已同意
               <a href="javascript:;">服务协议与隐私政策</a>
             </section>
           </div>
@@ -177,7 +177,9 @@
           const result = await phoneCodeLogin(this.phone, this.code);
           console.log(result);
           if (result.success_code === 200) {
+            console.log("到这了")
             this.userInfo = result.message;
+            console.log(this.userInfo);
           } else {
             this.userInfo = {
               message: '登录失败, 手机号或验证码不正确!'
@@ -214,7 +216,6 @@
           Toast(this.userInfo.message);
         } else { // 成功
           // 6.1 同步用户数据
-          console.log(this.userInfo);
           this.syncUserInfo(this.userInfo);
           // 6.2 回到主界面
           this.$router.back();

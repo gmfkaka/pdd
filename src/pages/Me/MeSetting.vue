@@ -8,7 +8,7 @@
 
     <div style="margin-top: 10px">
       <me-common-cell left-icon="itlike-4" left-title="免密支付设置" :clickCell="dealClickCell"/>
-      <me-common-cell left-icon="itlike-5" left-title="itlike设置" :clickCell="dealClickCell"/>
+      <me-common-cell left-icon="itlike-5" left-title="拼多多设置" :clickCell="dealClickCell"/>
     </div>
 
     <div style="margin-top: 10px">
