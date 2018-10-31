@@ -5,7 +5,8 @@ import {
     getRecommendShopList,
     getSearchGoods,
     getUserInfo,
-    getLogOut
+    getLogOut,
+    getCartsGoods
 } from '../api'
 
 import {
@@ -15,7 +16,11 @@ import {
     RECOMMEND_SHOP_LIST,
     SEARCH_GOODS,
     USER_INFO,
-    RESET_USER_INFO
+    RESET_USER_INFO,
+    CART_GOODS_LIST,
+    ADD_GOODS_COUNT,
+    REDUCE_GOODS_COUNT,
+    SELECTED_ALL_GOODS
 } from './mutations-types'
 
 export default {
@@ -48,7 +53,6 @@ export default {
 
     // 6. 同步用户的信息
     syncUserInfo({ commit }, userInfo) {
-        console.log("同步用户消息")
         commit(USER_INFO, { userInfo });
     },
     
@@ -67,6 +71,27 @@ export default {
         if (result.success_code === 200) {
             commit(RESET_USER_INFO);
         }
+    },
+
+    // 9.请求购物车数据
+    async reqCartsGoods({ commit }) {
+        const result = await getCartsGoods();
+        if(result.success_code === 200){
+            commit(CART_GOODS_LIST, {cartgoods: result.message})
+        }
+    },
+
+    // 10.单个商品增加减少
+    updateGoodsCount({ commit },{goods,isAdd}){
+        if(isAdd){
+            commit(ADD_GOODS_COUNT,{goods});
+        }else{
+            commit(REDUCE_GOODS_COUNT,{goods})
+        }
+    },
+
+    // 11.是否选择所有商品
+    selectedAll({commit},{isSelected}){
+        commit(SELECTED_ALL_GOODS,{isSelected});
     }
-    
 }

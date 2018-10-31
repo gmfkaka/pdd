@@ -175,11 +175,9 @@
           }
           // 5.3 手机验证码登录
           const result = await phoneCodeLogin(this.phone, this.code);
-          console.log(result);
+          //console.log(result);
           if (result.success_code === 200) {
-            console.log("到这了")
             this.userInfo = result.message;
-            console.log(this.userInfo);
           } else {
             this.userInfo = {
               message: '登录失败, 手机号或验证码不正确!'

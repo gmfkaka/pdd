@@ -1,6 +1,6 @@
 <template>
   <div class="chat">
-    <div >
+    <div v-if="userInfo.id">
       <!--头部区域-->
       <div class="header">
         <a href="" class="icon_back"></a>
@@ -16,22 +16,22 @@
       <!--中间的列表-->
       <main class="jd_shopCart_list">
         <section>
-          <div class="shopCart_list_con">
+          <div class="shopCart_list_con" v-for="(goods,index) in cartgoods" :key="index">
             <div class="list_con_left">
               <a href="javascript:;" class="cart_check_box" checked></a>
             </div>
             <div class="list_con_right">
               <div class="shop_img">
-                <img  alt="">
+                <img :src="goods.thumb_url" alt="">
               </div>
               <div class="shop_con">
-                <a href=""></a>
-                <p class="shop_price">&yen;</p>
+                <a href="">{{goods.goods_name}}</a>
+                <p class="shop_price">{{goods.price / 100 | moneyFormat(goods.price)}}</p>
                 <div class="shop_deal">
                   <div class="shop_deal_left">
-                    <span>-</span>
-                    <input type="tel" value="1">
-                    <span>+</span>
+                    <span @click.prevent="updateGoodsCount(goods,false)">-</span>
+                    <input type="tel" value="1" v-model="goods.buy_count">
+                    <span @click.prevent="updateGoodsCount(goods,true)">+</span>
                   </div>
                   <div class="shop_deal_right">
                     <span></span>
@@ -46,10 +46,10 @@
       <!--底部通栏-->
       <div id="tab_bar">
         <div class="tab-bar-left">
-          <a href="javascript:;" class="cart_check_box" checked></a>
+          <a href="javascript:;" class="cart_check_box" :checked="isSelectAll" @click="selectedAll(isSelectAll)"></a>
           <span style="font-size: 16px;">全选</span>
           <div class="select-all">
-            合计：<span class="total-price">&yen;999.00</span>
+            合计：<span class="total-price">{{totalPrice | moneyFormat(totalPrice)}}</span>
           </div>
         </div>
         <div class="tab-bar-right">
@@ -57,12 +57,62 @@
         </div>
       </div>
     </div>
+    <select-login v-else />
   </div>
 </template>
 
 <script>
+  import {mapState} from 'vuex';
+  import SelectLogin from './../Login/SelectLogin';
+
     export default {
-        name:"Chat"
+        name:"Chat",
+        data(){
+          return{
+            isSelectAll:false,
+            totalPrice:0
+          }
+        },
+        computed: {
+          ...mapState(['userInfo', 'cartgoods']),
+        },
+        mounted(){
+          // 请求商品数据
+          this.$store.dispatch("reqCartsGoods");
+        },
+        components:{
+          SelectLogin
+        },
+        methods:{
+          // 商品增加减少
+          updateGoodsCount(goods,isAdd){
+            this.$store.dispatch('updateGoodsCount',{goods,isAdd});
+          },
+          // 是否全选
+          selectedAll(isSelected){
+            // 总控制
+            this.isSelectAll = !isSelected;
+            this.$store.dispatch("selectedAll",{isSelected});
+            // 计算商品总价格
+            this.getAllGoodsPrice();
+          },
+          // 计算商品总价格
+          getAllGoodsPrice(){
+            let totalPrice = 0;
+            this.cartgoods.forEach((goods,index)=>{
+              if(goods.checked){
+                totalPrice += goods.price / 100 * goods.buy_count
+              }
+            })
+            this.totalPrice = totalPrice;
+          }
+        },
+        filters:{
+          // 金额格式化 
+          moneyFormat(money){
+            return "￥"+money.toFixed(2)
+          }
+        }
     };
 </script>
 

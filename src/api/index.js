@@ -37,3 +37,6 @@ export const getLogOut = ()=>ajax(BASE_URL + '/api/logout');
 
 // 2.11 加入购物车
 export const addGoodsToCart = (user_id, goods_id, goods_name, thumb_url, price) => ajax(BASE_URL + '/api/add_shop_cart', {user_id, goods_id, goods_name, thumb_url, price}, 'POST');
+
+// 2.12 请求购物车的数据
+export const getCartsGoods = () => ajax(BASE_URL + '/api/cart_goods');
