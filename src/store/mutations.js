@@ -9,7 +9,9 @@ import {
     CART_GOODS_LIST,
     ADD_GOODS_COUNT,
     REDUCE_GOODS_COUNT,
-    SELECTED_ALL_GOODS
+    SELECTED_ALL_GOODS,
+    SINGLE_GOODS_SELECTED,
+    DEL_SINGLE_GOODS
 } from './mutations-types'
 
 export default {
@@ -54,5 +56,18 @@ export default {
                 Vue.set(goods,'checked',!isSelected);
             }
         })
+    },
+    [SINGLE_GOODS_SELECTED](state,{goods}){
+        // 判断是否有选中的属性
+        if(goods.checked){
+            goods.checked = !goods.checked;
+        }else{
+            Vue.set(goods,'checked',true)
+        }
+    },
+    [DEL_SINGLE_GOODS](state,{goods}){
+        goods.buy_count = 0;
+        const index = state.cartgoods.indexOf(goods);
+        state.cartgoods.splice(index,1);
     }
 }

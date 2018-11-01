@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 import Home from './../pages/Home/Home'
 import Recommend from './../pages/Recommend/Recommend'
 import Search from './../pages/Search/Search'
-import Chat from './../pages/Chat/Chat'
+import Shop from './../pages/Shop/Shop'
 import Me from './../pages/Me/Me'
 import Login from './../pages/Login/Login'
 
@@ -66,8 +66,8 @@ export default new VueRouter({
             meta:{showBottomTabBar:true}
         },
         {
-            path: '/chat',
-            component: Chat,
+            path: '/shop',
+            component: Shop,
             meta:{showBottomTabBar:true}
         },
         {

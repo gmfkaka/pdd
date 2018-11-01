@@ -1,5 +1,5 @@
 <template>
-  <div class="chat">
+  <div class="shop">
     <div v-if="userInfo.id">
       <!--头部区域-->
       <div class="header">
@@ -18,7 +18,12 @@
         <section>
           <div class="shopCart_list_con" v-for="(goods,index) in cartgoods" :key="index">
             <div class="list_con_left">
-              <a href="javascript:;" class="cart_check_box" checked></a>
+              <a 
+                href="javascript:;" 
+                class="cart_check_box" 
+                :checked="goods.checked"
+                @click.stop="singleGoodsSelected(goods)"
+              ></a>
             </div>
             <div class="list_con_right">
               <div class="shop_img">
@@ -33,7 +38,7 @@
                     <input type="tel" value="1" v-model="goods.buy_count">
                     <span @click.prevent="updateGoodsCount(goods,true)">+</span>
                   </div>
-                  <div class="shop_deal_right">
+                  <div class="shop_deal_right" @click.stop="clickTrash(goods)">
                     <span></span>
                     <span></span>
                   </div>
@@ -64,13 +69,14 @@
 <script>
   import {mapState} from 'vuex';
   import SelectLogin from './../Login/SelectLogin';
-
+  import {Toast,MessageBox} from 'mint-ui'
     export default {
-        name:"Chat",
+        name:"shop",
         data(){
           return{
             isSelectAll:false,
-            totalPrice:0
+            totalPrice:0,
+            currentDelGoods:{}
           }
         },
         computed: {
@@ -84,11 +90,12 @@
           SelectLogin
         },
         methods:{
-          // 商品增加减少
+          // 1.商品增加减少
           updateGoodsCount(goods,isAdd){
             this.$store.dispatch('updateGoodsCount',{goods,isAdd});
+            this.getAllGoodsPrice();
           },
-          // 是否全选
+          // 2.是否全选
           selectedAll(isSelected){
             // 总控制
             this.isSelectAll = !isSelected;
@@ -96,7 +103,7 @@
             // 计算商品总价格
             this.getAllGoodsPrice();
           },
-          // 计算商品总价格
+          // 3.计算商品总价格
           getAllGoodsPrice(){
             let totalPrice = 0;
             this.cartgoods.forEach((goods,index)=>{
@@ -105,6 +112,32 @@
               }
             })
             this.totalPrice = totalPrice;
+          },
+          // 4.单个商品的选中和取消
+          singleGoodsSelected(goods){
+            this.$store.dispatch("singleGoodsSelected",{goods});
+            this.getAllGoodsPrice();
+            this.hasSelected();
+          },
+          // 5.判断是否全选
+          hasSelected(){
+            let flag = true;
+            this.cartgoods.forEach((goods,index)=>{
+              if(!goods.checked){
+                flag = false
+              }
+            });
+            this.isSelectAll = flag;
+          },
+          // 6.点击删除商品
+          clickTrash(goods){
+            MessageBox.confirm('您确定删除该商品吗?').then(action => {
+                  if ('confirm' === action) {
+                      this.currentDelGoods = goods;
+                      this.$store.dispatch("delGoodsSingle",{goods});
+                      this.getAllGoodsPrice();
+                  }
+              });
           }
         },
         filters:{
@@ -117,7 +150,7 @@
 </script>
 
 <style scoped lang="stylus" ref="stylesheet/stylus">
-  .chat
+  .shop
     width 100%
     height 100%
     background-color #e0e0e0

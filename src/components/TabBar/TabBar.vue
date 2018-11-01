@@ -12,9 +12,9 @@
          <img :src="$route.path.includes('/search') ? tabBarImgArr[2].selected :tabBarImgArr[2].normal" alt="">
          <span :class="{on:$route.path.includes('/search')}">搜索</span>
      </span>
-     <span class="tab-item" @click="switchTo('/chat')">
-         <img :src="$route.path.includes('/chat') ? tabBarImgArr[3].selected :tabBarImgArr[3].normal" alt="">
-         <span :class="{on:$route.path.includes('/chat')}">购物车</span>
+     <span class="tab-item" @click="switchTo('/shop')">
+         <img :src="$route.path.includes('/shop') ? tabBarImgArr[3].selected :tabBarImgArr[3].normal" alt="">
+         <span :class="{on:$route.path.includes('/shop')}">购物车</span>
      </span>
      <span class="tab-item" @click="switchTo('/me')">
          <img :src="$route.path.includes('/me') ? tabBarImgArr[4].selected :tabBarImgArr[4].normal" alt="">        

@@ -20,7 +20,9 @@ import {
     CART_GOODS_LIST,
     ADD_GOODS_COUNT,
     REDUCE_GOODS_COUNT,
-    SELECTED_ALL_GOODS
+    SELECTED_ALL_GOODS,
+    SINGLE_GOODS_SELECTED,
+    DEL_SINGLE_GOODS
 } from './mutations-types'
 
 export default {
@@ -45,7 +47,7 @@ export default {
         commit(RECOMMEND_SHOP_LIST, { recommendshoplist: result.message.data })
     },
     //5.获取推荐商品的数据
-    async reqSearchGoods({ commit }, callback ) {
+    async reqSearchGoods({ commit }, callback) {
         const result = await getSearchGoods();
         commit(SEARCH_GOODS, { searchgoods: result.message.data })
         callback && callback();
@@ -55,16 +57,16 @@ export default {
     syncUserInfo({ commit }, userInfo) {
         commit(USER_INFO, { userInfo });
     },
-    
+
     // 7. 异步获取用户信息
-    async getUserInfo({commit}){
+    async getUserInfo({ commit }) {
         const result = await getUserInfo();
-        if(result.success_code === 200){
-            commit(USER_INFO, {userInfo: result.message});
+        if (result.success_code === 200) {
+            commit(USER_INFO, { userInfo: result.message });
         }
     },
     // 8. 退出登录
-    async logout({commit}) {
+    async logout({ commit }) {
         console.log(111);
         const result = await getLogOut();
         console.log(result);
@@ -76,22 +78,32 @@ export default {
     // 9.请求购物车数据
     async reqCartsGoods({ commit }) {
         const result = await getCartsGoods();
-        if(result.success_code === 200){
-            commit(CART_GOODS_LIST, {cartgoods: result.message})
+        if (result.success_code === 200) {
+            commit(CART_GOODS_LIST, { cartgoods: result.message })
         }
     },
 
     // 10.单个商品增加减少
-    updateGoodsCount({ commit },{goods,isAdd}){
-        if(isAdd){
-            commit(ADD_GOODS_COUNT,{goods});
-        }else{
-            commit(REDUCE_GOODS_COUNT,{goods})
+    updateGoodsCount({ commit }, { goods, isAdd }) {
+        if (isAdd) {
+            commit(ADD_GOODS_COUNT, { goods });
+        } else {
+            commit(REDUCE_GOODS_COUNT, { goods })
         }
     },
 
     // 11.是否选择所有商品
-    selectedAll({commit},{isSelected}){
-        commit(SELECTED_ALL_GOODS,{isSelected});
+    selectedAll({ commit }, { isSelected }) {
+        commit(SELECTED_ALL_GOODS, { isSelected });
+    },
+
+    // 12.单个商品的选中
+    singleGoodsSelected({ commit }, { goods }) {
+        commit(SINGLE_GOODS_SELECTED, { goods })
+    },
+
+    // 13.单个商品的删除
+    delGoodsSingle({ commit }, { goods }) {
+        commit(DEL_SINGLE_GOODS, { goods })
     }
 }

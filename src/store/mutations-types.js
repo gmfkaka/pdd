@@ -9,3 +9,5 @@ export const CART_GOODS_LIST = 'cart_goods_list'; // 购物车数据
 export const ADD_GOODS_COUNT = 'add_goods_count'; // 增加购物车单个数据
 export const REDUCE_GOODS_COUNT = 'reduce_goods_count'; // 减少购物车单个数据
 export const SELECTED_ALL_GOODS = 'selected_all_goods'; // 是否选中所有商品
+export const SINGLE_GOODS_SELECTED = 'single_goods_selected'; // 单个商品的选中
+export const DEL_SINGLE_GOODS = 'del_single_goods'; // 单个商品的删除
