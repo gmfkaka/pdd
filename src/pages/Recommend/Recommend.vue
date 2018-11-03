@@ -18,6 +18,7 @@
     import ShopList from './../../components/ShopList/ShopList'
     import { addGoodsToCart } from '../../api';
     import SelectLogin from "./../Login/SelectLogin"
+    import {Toast} from 'mint-ui';
 
     export default {
         name:"Recommend",
@@ -37,6 +38,11 @@
                 //1.发送请求
                 let result = await addGoodsToCart(this.userInfo.id, goods.goods_id, goods.goods_name, goods.thumb_url, goods.price);
                 console.log(result);
+                Toast({
+                    message: "加入购物车成功",
+                    position: 'center',
+                    duration: 3000
+                });
             }
         }
     };

@@ -64,7 +64,7 @@
                 <img
                   ref="captcha"
                   class="get-verification"
-                  src="http://127.0.0.1:3000/api/captcha"
+                  src="http://127.0.0.1:5050/api/captcha"
                   alt="captcha"
                   @click.prevent="getCaptcha()"
                 >
@@ -151,7 +151,7 @@
       },
       // 4. 获取图形验证码
       getCaptcha() {
-        this.$refs.captcha.src = 'http://127.0.0.1:3000/api/captcha?time=' + new Date();
+        this.$refs.captcha.src = 'http://127.0.0.1:5050/api/captcha?time=' + new Date();
       },
       // 5. 登录
       async login() {
